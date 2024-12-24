@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <style>
+      .main-page {
+        background-color: rgb(0,0,0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        
+      }
+      .calculator {
+        width: 200px;
+        height: 250px;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        padding-top: 40px;
+        padding-left: 44px;
+        border-radius: 10px;
+        background-color: rgb(43, 33, 21);
+        
+      }
+
+      .js-total-display {
+        position: absolute;
+        top: 10px;
+        right: 53px;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        padding-right: 8px;
+        height: 20px;
+        width: 136px;
+        font-family: roboto, Arial;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;        
+        border: none;
+        border-radius: 4px;
+        background-color: rgb(66, 64, 64);
+        box-shadow: 2px 1px 10px rgb(173, 216, 230, 0.2);
+      }
+     
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        padding: 17px 17px 17px 17px;
+        height: 20px;
+        width: 20px;
+        font-family: roboto, Arial;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+        border-radius: 17px;
+        border: none;
+        background-color: rgb(66, 64, 64);
+        
+        
+        
+      }
+      button:hover {
+        box-shadow: 2px 1px 10px rgb(173, 216, 230,0.5);
+      }
+      
+      .clear {
+        height: 20px;
+        width: 40px;
+        position: absolute;
+        left: 43px;
+        bottom: 16px;
+        font-size: 10px;
+        font-weight: 500;
+        height: 20px;
+        width: 20px;
+        border-radius: 20px;
+      }
+
+      .yellow-button {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body class="main-page">
+    <div class="calculator">
+      <p class="js-total-display"></p>
+      <p>
+        <button onclick="
+          updateCalculations('1');
+        ">1</button>
+        <button onclick="
+          updateCalculations('4');
+        ">4</button>
+        <button onclick="
+          updateCalculations('7');
+        ">7</button>
+        <button onclick="
+          updateCalculations('0');
+        ">0</button>
+      </p>
+  
+      <p>
+        <button onclick="
+          updateCalculations('2');
+        ">2</button>
+        <button onclick="
+          updateCalculations('5');
+        ">5</button>
+        <button onclick="
+          updateCalculations('8');
+        ">8</button>
+        <button onclick="
+          updateCalculations('.');
+        ">.</button>
+      </p>
+  
+      <p>
+        <button onclick="
+          updateCalculations('3');
+        ">3</button>
+        <button onclick="
+          updateCalculations('6');
+        ">6</button>
+        <button onclick="
+          updateCalculations('9');
+        ">9</button>
+        <button onclick="
+          result();
+        ">=</button>
+      </p>
+  
+      <p>
+        <button class="yellow-button" onclick="
+          updateCalculations(' + ');
+        ">+</button>
+        <button class="yellow-button" onclick="
+          updateCalculations(' - ');
+        ">-</button>
+        <button class="yellow-button" onclick="
+          updateCalculations(' * ');
+        ">*</button>
+        <button class="yellow-button" onclick="
+          updateCalculations(' / ');
+        ">/</button>
+      </p>
+  
+      <p>
+        <button class="clear" onclick="
+          clearCalculations();
+        ">Clear</button>
+      </p>
+    </div>
+
+    <script>
+
+      let calculations = JSON.parse(localStorage.getItem('calculations')) || '';
+
+      document.querySelector('.js-total-display').innerHTML = `${calculations}`;
+
+
+      function updateCalculations(input) { 
+          calculations += input;
+          localStorage.setItem('calculations',JSON.stringify(calculations));
+          document.querySelector('.js-total-display').innerHTML = `${calculations}`;
+      }
+
+      function result() {
+        calculations = eval(calculations);
+        localStorage.setItem('calculations',JSON.stringify(calculations));
+        document.querySelector('.js-total-display').innerHTML = `${calculations}`;
+      }
+
+      function clearCalculations() {
+        calculations = ''; 
+        localStorage.setItem('calculations', JSON.stringify(calculations)); 
+        document.querySelector('.js-total-display').innerHTML = `${calculations}`;
+      }
+
+    </script>
+  </body>
+</html>
